@@ -6,7 +6,7 @@ bool buttonState = false; // Variable that will store the button state and chang
 bool lastButtonState = false; // Variable that will store the last button state and changes depending on the last state of the button (the opposite of the buttonState)
 unsigned long debounceDelay = 50; // Variable that will store the value of 50 milliseconds and be used to avoid detecting a false button presses due to electrical noise
 unsigned long lastDebounceTime = 0; // Variable that will store the time the button last changed its state and work with the debounceDelay to ensure there is no false detection
-unsigned long buttonHoldTime = 10000; // Variable that represents 10 seconds in millisecons, and is storing a value that represents the minimum required hold time for the button to be held down for
+unsigned long buttonHoldTime = 1000; // Variable that represents 10 seconds in millisecons, and is storing a value that represents the minimum required hold time for the button to be held down for
 unsigned long buttonPressStartTime = 0; // Variable that will store the time that button was first pressed and be used to compare to the duration the button was pressed using the millis() built in timer function of Arduinos
 bool counted = false; // Variable that will store whether the button has been held for 10 seconds or not
 
@@ -45,6 +45,10 @@ void loop() {
         if (millis() - buttonPressStartTime >= buttonHoldTime && !counted) {
           counted = true;
           Serial.println("Button held for 10 seconds, event counted");
+        }
+        else{
+          counted = false;
+          Serial.println("Button not held for 10 seconds, event not counted");
         }
       }
     }
